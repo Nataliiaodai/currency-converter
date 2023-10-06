@@ -1,0 +1,76 @@
+.currency-converter-section {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.currency-converter-container {
+
+}
+
+.currency-converter-main-header {
+    margin-bottom: 20px;
+}
+
+.currency-converter-sub-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 235px;
+    padding: 30px;
+    position: relative;
+}
+
+.currency-converter-sub-container-button {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    position: absolute;
+    z-index: 100;
+}
+
+
+.currency-converter-sub-container-button:active {
+    background-color: white;
+    border: none;
+    width: 62px;
+    height: 62px;
+    box-shadow: 0 7px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.currency-converter-sub-container-button:focus {
+    border: none;
+}
+
+.currency-converter-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 46%;
+    height: 90%;
+    border: 1px solid rgb(52 122 225 / 26%);
+    /*border-radius: 30px;*/
+    padding: 10px;
+}
+
+.currency-converter-block-header {
+    margin: 0;
+}
+
+.currency-converter-form-block {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.currency-converter-form-block-input {
+    width: 40%;
+}
+
+.currency-converter-form-block-select {
+    width: 40%;
+}
+
