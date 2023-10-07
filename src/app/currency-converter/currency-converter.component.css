@@ -1,5 +1,7 @@
 .currency-converter-section {
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    width: 65%;
+    height: 400px;
 }
 
 .currency-converter-container {
@@ -16,7 +18,7 @@
     align-items: center;
     width: 100%;
     height: 235px;
-    padding: 30px;
+    padding: 30px 10px;
     position: relative;
 }
 
@@ -38,7 +40,6 @@
     height: 62px;
     box-shadow: 0 7px 12px rgba(0, 0, 0, 0.2);
 }
-
 
 
 .currency-converter-sub-container-button:focus {
@@ -67,10 +68,19 @@
 }
 
 .currency-converter-form-block-input {
-    width: 40%;
+    width: 47%;
+    border: transparent;
 }
 
 .currency-converter-form-block-select {
-    width: 40%;
+    width: 47%;
+    border: transparent;
 }
+.currency-converter-form-block-select.option {
+    display: none;
+    background-color: grey;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
 
