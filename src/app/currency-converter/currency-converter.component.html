@@ -5,16 +5,15 @@
             <div class="currency-converter-block">
                 <h5 class="currency-converter-block-header">I have:</h5>
                 <div class="currency-converter-form-block">
-<!--                    <input type="text" class="form-control currency-converter-form-block-input">-->
-<!--                    <select class="form-select currency-converter-form-block-select" [(ngModel)]="selectedFromCurrency">-->
-<!--                        <option *ngFor="let item of allCurrency;">{{item.cc}} {{item.txt}}</option>-->
-<!--                    </select>-->
-                    <input type="text" class="form-control currency-converter-form-block-input" [(ngModel)]="selectedFromAmount">
-                    <select class="form-select currency-converter-form-block-select" [(ngModel)]="selectedFromCurrency">
-                        <option *ngFor="let item of allCurrency;" [value]="item.cc">{{item.cc}}</option>
+                    <input type="text" class="form-control currency-converter-form-block-input"
+                           [(ngModel)]="leftAmount" (input)="onConvertingLeftSide()">
+                    <select class="form-select currency-converter-form-block-select" (change)="onConvertingRightSide(); onCurrencyChange()"
+                            [(ngModel)]="leftCurrency">
+                        <option *ngFor="let item of currencyService.getModifiedCurrencyList();"
+                                [value]="item">{{item}}</option>
                     </select>
                 </div>
-                <p>1 {{selectedFromCurrency}} = {{selectedToCurrency}}</p>
+                <p>1 {{leftCurrency}} = {{leftCrossRate}} {{rightCurrency}}</p>
             </div>
             <button class="btn currency-converter-sub-container-button" type="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
@@ -26,16 +25,15 @@
             <div class="currency-converter-block">
                 <h5 class="currency-converter-block-header">I will get:</h5>
                 <div class="currency-converter-form-block">
-<!--                    <input type="text" class="form-control currency-converter-form-block-input">-->
-<!--                    <select class="form-select currency-converter-form-block-select" [(ngModel)]="selectedForCurrency">-->
-<!--                        <option *ngFor="let item of allCurrency;">{{item.cc}} {{item.txt}}</option>-->
-<!--                    </select>-->
-                    <input type="text" class="form-control currency-converter-form-block-input" [(ngModel)]="selectedToAmount">
-                    <select class="form-select currency-converter-form-block-select" [(ngModel)]="selectedToCurrency">
-                        <option *ngFor="let item of allCurrency;" [value]="item.cc">{{item.cc}}</option>
+                    <input type="text" class="form-control currency-converter-form-block-input"
+                           [(ngModel)]="rightAmount" (input)="onConvertingRightSide()">
+                    <select class="form-select currency-converter-form-block-select" (change)="onConvertingLeftSide(); onCurrencyChange()"
+                            [(ngModel)]="rightCurrency">
+                        <option *ngFor="let item of currencyService.getModifiedCurrencyList();"
+                                [value]="item">{{item}}</option>
                     </select>
                 </div>
-                <p>1 {{selectedToCurrency }} = {{selectedFromCurrency}}</p>
+                <p>1 {{rightCurrency}} = {{rightCrossRate}} {{leftCurrency}}</p>
             </div>
         </div>
 

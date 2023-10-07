@@ -9,39 +9,61 @@ import {CurrencyModel} from "./currency.model";
 })
 export class CurrencyConverterComponent implements OnInit, DoCheck {
 
+    leftCurrency: string = 'USD';
+    leftAmount: number = 1;
+    rightCurrency: string = 'EUR';
+    rightAmount: number = 1;
+
+    leftCrossRate: number = 0;
+    rightCrossRate: number = 0;
+
+
     constructor(public currencyService: CurrencyService) {
     }
 
-    allCurrency: CurrencyModel[] = [];
-    selectedFromCurrency: string = 'UAH';
-    selectedToCurrency: string = 'USD';
-    selectedFromAmount: number = 100;
-    selectedToAmount: number = 100;
-
-
     ngOnInit() {
-        this.onGettingAllCurrency();
-        console.log('OnInit--selectedFromCurrency---', this.selectedFromCurrency);
-        console.log('OnInit--selectedToCurrency---', this.selectedToCurrency);
-        // console.log('OnInit--selectedFromAmount---', this.selectedFromAmount);
-        // console.log('OnInit--selectedToAmount---', this.selectedToAmount);
-
+        this.currencyService.currencyRefreshed.subscribe(() => {
+            this.onConvertingLeftSide();
+            this.onCurrencyChange();
+        })
     }
 
-    onGettingAllCurrency() {
-        this.currencyService.getAllCurrency().subscribe((response) => {
-            this.allCurrency = response;
-            console.log(response);
-        });
-    }
 
     ngDoCheck() {
-        console.log('DoCheck--selectedFromCurrency---', this.selectedFromCurrency);
-        console.log('DoCheck--selectedToCurrency---', this.selectedToCurrency);
     }
 
-    // singleCurrencyCompare() {
-    //
-    // }
+    onConvertingLeftSide() {
+        this.rightAmount = this.currencyService.currencyConverting(
+            this.leftCurrency,
+            this.leftAmount,
+            this.rightCurrency);
+    }
+
+    onConvertingRightSide() {
+        this.leftAmount = this.currencyService.currencyConverting(
+            this.leftCurrency,
+            this.leftAmount,
+            this.rightCurrency);
+    }
+
+    onCurrencyChange() {
+        this.setLeftCrossRate();
+        this.setRightCrossRate();
+    }
+
+    setLeftCrossRate() {
+        this.leftCrossRate = this.currencyService.currencyConverting(
+            this.leftCurrency,
+            1,
+            this.rightCurrency);
+    }
+
+
+    setRightCrossRate() {
+        this.rightCrossRate =  this.currencyService.currencyConverting(
+            this.rightCurrency,
+            1,
+            this.leftCurrency);
+    }
 
 }
