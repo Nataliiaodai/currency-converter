@@ -1,69 +1,49 @@
-import {Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges,} from '@angular/core';
+import {Component,OnInit} from '@angular/core';
 import {CurrencyService} from "../services/currency.service";
-import {CurrencyModel} from "./currency.model";
 
 @Component({
     selector: 'app-currency-converter',
     templateUrl: './currency-converter.component.html',
     styleUrls: ['./currency-converter.component.css']
 })
-export class CurrencyConverterComponent implements OnInit, DoCheck {
+export class CurrencyConverterComponent implements OnInit{
 
     leftCurrency: string = 'USD';
     leftAmount: number = 1;
     rightCurrency: string = 'EUR';
     rightAmount: number = 1;
-
     leftCrossRate: number = 0;
     rightCrossRate: number = 0;
-
 
     constructor(public currencyService: CurrencyService) {
     }
 
     ngOnInit() {
         this.currencyService.currencyRefreshed.subscribe(() => {
-            this.onConvertingLeftSide();
-            this.onCurrencyChange();
+            this.setRightAmount();
+            this.setCrossRates();
         })
     }
 
-
-    ngDoCheck() {
+    setRightAmount() {
+        this.rightAmount = this.currencyService.convert(this.leftCurrency, this.leftAmount, this.rightCurrency);
     }
 
-    onConvertingLeftSide() {
-        this.rightAmount = this.currencyService.currencyConverting(
-            this.leftCurrency,
-            this.leftAmount,
-            this.rightCurrency);
+    setLeftAmount() {
+        this.leftAmount = this.currencyService.convert(this.rightCurrency, this.rightAmount, this.leftCurrency);
     }
 
-    onConvertingRightSide() {
-        this.leftAmount = this.currencyService.currencyConverting(
-            this.leftCurrency,
-            this.leftAmount,
-            this.rightCurrency);
-    }
-
-    onCurrencyChange() {
+    setCrossRates() {
         this.setLeftCrossRate();
         this.setRightCrossRate();
     }
 
     setLeftCrossRate() {
-        this.leftCrossRate = this.currencyService.currencyConverting(
-            this.leftCurrency,
-            1,
-            this.rightCurrency);
+        this.leftCrossRate = this.currencyService.convert(this.leftCurrency,1, this.rightCurrency);
     }
 
-
     setRightCrossRate() {
-        this.rightCrossRate =  this.currencyService.currencyConverting(
-            this.rightCurrency,
-            1,
-            this.leftCurrency);
+        this.rightCrossRate = this.currencyService.convert(this.rightCurrency,1, this.leftCurrency);
     }
 
 }

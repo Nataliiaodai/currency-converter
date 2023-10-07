@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, Subject} from "rxjs";
 import {CurrencyModel} from "../currency-converter/currency.model";
 import {HttpClient} from "@angular/common/http";
@@ -26,42 +26,29 @@ export class CurrencyService {
         });
     }
 
-
-
     getModifiedCurrencyList() {
         let modifiedCurrencyList: string[] = [];
         for (let item of this.allCurrency) {
             modifiedCurrencyList.push(item.cc);
         }
-
         return modifiedCurrencyList;
     }
 
-    currencyConverting(
-        fromCurrency: string,
-        fromAmount: number,
-        toCurrency: string) {
-
-        let sourceCurrencyInUah: number = 0;
-        let targetCurrencyRate: number = 0 ;
-
-        for(let item of this.allCurrency) {
-            if (item.cc === fromCurrency) {
-                sourceCurrencyInUah = fromAmount * item.rate;
-                console.log('sourceCurrencyToUah--', sourceCurrencyInUah);
-            }
-
-            if(item.cc === toCurrency ) {
-                targetCurrencyRate = item.rate;
-                console.log('currencyToPerOne', targetCurrencyRate);
-            }
-        }
-
-        return Math.round(sourceCurrencyInUah / targetCurrencyRate * 100) / 100;
+    convert(srcCurrency: string, srcAmount: number, targetCurrency: string) {
+        const amountInUah = srcAmount * this.getUahRate(srcCurrency);
+        const targetCurrencyRate = this.getUahRate(targetCurrency);
+        return Math.round(amountInUah / targetCurrencyRate * 100) / 100;
     }
 
-
-
+    getUahRate(currency: string) {
+        let currencyItemRate: number = 0;
+        for (let item of this.allCurrency) {
+            if (item.cc === currency) {
+                currencyItemRate = item.rate;
+            }
+        }
+        return  currencyItemRate;
+    }
 
     getAllCurrency(): Observable<CurrencyModel[]> {
         return this.http.get<CurrencyModel[]>('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json')
