@@ -5,7 +5,7 @@
             <div class="currency-converter-block">
                 <h6 class="currency-converter-block-header">I have:</h6>
                 <div class="currency-converter-form-block">
-                    <input type="text" class="form-control currency-converter-form-block-input"
+                    <input type="number" class="form-control currency-converter-form-block-input"
                            [(ngModel)]="leftAmount" (input)="setRightAmount()">
                     <select class="form-select currency-converter-form-block-select" (change)="setRightAmount(); setCrossRates()"
                             [(ngModel)]="leftCurrency">
@@ -20,7 +20,7 @@
             <div class="currency-converter-block">
                 <h6 class="currency-converter-block-header">I will get:</h6>
                 <div class="currency-converter-form-block">
-                    <input type="text" class="form-control currency-converter-form-block-input"
+                    <input type="number" class="form-control currency-converter-form-block-input"
                            [(ngModel)]="rightAmount" (input)="setLeftAmount()">
                     <select class="form-select currency-converter-form-block-select" (change)="setLeftAmount(); setCrossRates()"
                             [(ngModel)]="rightCurrency">
