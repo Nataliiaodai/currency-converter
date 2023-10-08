@@ -9,19 +9,13 @@ import {getMathRound} from "../helpers/round-to-two-decimal-places.function"
 })
 export class CurrencyService {
 
-    filterCurrencyTo: string[] = ['USD', 'EUR', 'CAD', 'PLN', 'GBP']
+    supportedCurrencies: string[] = ['USD', 'EUR', 'CAD', 'PLN', 'GBP'];
     allCurrency: CurrencyModel[] = [];
     currencyRefreshed: Subject<void> = new Subject<void>();
 
     constructor(private http: HttpClient) {
         this.getAllCurrency().subscribe((response) => {
-            for (let item of response) {
-                if (this.filterCurrencyTo.includes(item.cc)) {
-                   this.allCurrency.push(item);
-                }
-            }
-            // this.allCurrency = response;
-
+            this.allCurrency = response.filter(item => this.supportedCurrencies.includes(item.cc))
             this.allCurrency.push({
                 r030: 9643,
                 txt: "Українська гривня",
