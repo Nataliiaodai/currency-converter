@@ -1,33 +1,24 @@
-<section class="container my-5 currency-converter-section">
-    <div class="p-5 text-center currency-converter-container">
-        <h3 class="currency-converter-main-header">Currency converter</h3>
+<section class="container currency-converter-section">
+    <div class="text-center currency-converter-container">
+        <h4 class="currency-converter-main-header">Currency converter</h4>
         <div class="currency-converter-sub-container">
             <div class="currency-converter-block">
-                <h5 class="currency-converter-block-header">I have:</h5>
+                <h6 class="currency-converter-block-header">I have:</h6>
                 <div class="currency-converter-form-block">
                     <input type="text" class="form-control currency-converter-form-block-input"
                            [(ngModel)]="leftAmount" (input)="setRightAmount()">
                     <select class="form-select currency-converter-form-block-select" (change)="setRightAmount(); setCrossRates()"
                             [(ngModel)]="leftCurrency">
-                        <option *ngFor="let item of currencyService.getModifiedCurrencyList();"
+                        <option class="currency-converter-form-block-option" *ngFor="let item of currencyService.getModifiedCurrencyList();"
                                 [value]="item">{{item}}</option>
                     </select>
+
                 </div>
-                <p>1 {{leftCurrency}} = {{leftCrossRate}} {{rightCurrency}}</p>
+                <p class="currency-converter-block-rate">1 {{leftCurrency}} = {{leftCrossRate}} {{rightCurrency}}</p>
             </div>
 
-
-            <button class="btn currency-converter-sub-container-button" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                     class="bi bi-arrow-left-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                          d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/>
-                </svg>
-            </button>
-
-
             <div class="currency-converter-block">
-                <h5 class="currency-converter-block-header">I will get:</h5>
+                <h6 class="currency-converter-block-header">I will get:</h6>
                 <div class="currency-converter-form-block">
                     <input type="text" class="form-control currency-converter-form-block-input"
                            [(ngModel)]="rightAmount" (input)="setLeftAmount()">
@@ -37,7 +28,7 @@
                                 [value]="item">{{item}}</option>
                     </select>
                 </div>
-                <p>1 {{rightCurrency}} = {{rightCrossRate}} {{leftCurrency}}</p>
+                <p class="currency-converter-block-rate">1 {{rightCurrency}} = {{rightCrossRate}} {{leftCurrency}}</p>
             </div>
         </div>
 

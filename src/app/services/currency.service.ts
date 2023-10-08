@@ -2,18 +2,26 @@ import {Injectable} from '@angular/core';
 import {Observable, Subject} from "rxjs";
 import {CurrencyModel} from "../currency-converter/currency.model";
 import {HttpClient} from "@angular/common/http";
+import {getMathRound} from "../helpers/round-to-two-decimal-places.function"
 
 @Injectable({
     providedIn: 'root'
 })
 export class CurrencyService {
 
+    filterCurrencyTo: string[] = ['USD', 'EUR', 'CAD', 'PLN', 'GBP']
     allCurrency: CurrencyModel[] = [];
     currencyRefreshed: Subject<void> = new Subject<void>();
 
     constructor(private http: HttpClient) {
         this.getAllCurrency().subscribe((response) => {
-            this.allCurrency = response;
+            for (let item of response) {
+                if (this.filterCurrencyTo.includes(item.cc)) {
+                   this.allCurrency.push(item);
+                }
+            }
+            // this.allCurrency = response;
+
             this.allCurrency.push({
                 r030: 9643,
                 txt: "Українська гривня",
@@ -37,7 +45,8 @@ export class CurrencyService {
     convert(srcCurrency: string, srcAmount: number, targetCurrency: string) {
         const amountInUah = srcAmount * this.getUahRate(srcCurrency);
         const targetCurrencyRate = this.getUahRate(targetCurrency);
-        return Math.round(amountInUah / targetCurrencyRate * 100) / 100;
+        let result: number = amountInUah / targetCurrencyRate;
+        return getMathRound(result);
     }
 
     getUahRate(currency: string) {
@@ -49,6 +58,10 @@ export class CurrencyService {
         }
         return  currencyItemRate;
     }
+
+    // getMathRound(num: number) {
+    //     return Math.round(num * 100) / 100;
+    // }
 
     getAllCurrency(): Observable<CurrencyModel[]> {
         return this.http.get<CurrencyModel[]>('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json')
