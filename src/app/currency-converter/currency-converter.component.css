@@ -79,11 +79,53 @@
     width: 47%;
     border: transparent;
 }
-.currency-converter-form-block-select.option {
-    display: none;
-    background-color: grey;
-    max-height: 200px;
-    overflow-y: auto;
+
+
+@media screen and (max-width: 1250px) {
+    .currency-converter-sub-container {
+        height: 350px;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .currency-converter-block {
+        height: 135px;
+    }
+
+    .currency-converter-form-block {
+        flex-direction: column;
+    }
+
+    .currency-converter-form-block-select {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 885px) {
+    .currency-converter-main-header {
+        font-size: 15px;
+    }
+    .currency-converter-block-header {
+        font-size: 10px;
+    }
+
+    .currency-converter-form-block-input {
+        /*font-size: small;*/
+        font-size: 10px;
+    }
+
+    .currency-converter-form-block-select {
+        font-size: 10px;
+    }
+
+    .currency-converter-form-block-option {
+        font-size: 10px;
+    }
+
+    .currency-converter-block-rate {
+        font-size: 10px;
+        height: fit-content;
+    }
 }
 
 
